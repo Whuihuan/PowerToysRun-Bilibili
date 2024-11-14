@@ -1,0 +1,13 @@
+﻿{
+  "ID": "D0D9D4B371794898B779EC0C8BDDDD6E",
+  "ActionKeyword": "*",
+  "IsGlobal": false,
+  "Name": "Bilibili",
+  "Author": "Whuihuan",
+  "Version": "1.0.0",
+  "Language": "csharp",
+  "Website": "https://github.com/Whuihuan/PowerToysRun-Bilibili",
+  "IcoPathDark": "bilibili_logo.png",
+  "IcoPathLight": "bilibili_logo.png",
+  "ExecuteFileName": "Community.PowerToys.Run.Plugin.Bilibili.dll"
+}
