@@ -10,7 +10,7 @@ namespace Community.Powertoys.Run.Plugin.Bilibili.Tests
         {
             var pluginDir = Directory.GetCurrentDirectory();
             var resultList = new List<Result>();
-            var value = "av706";
+            var value = Console.ReadLine() ?? "";
 
             #region 搜索哔哩哔哩
 

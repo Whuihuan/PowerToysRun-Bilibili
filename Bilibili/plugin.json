@@ -4,7 +4,7 @@
   "IsGlobal": false,
   "Name": "Bilibili",
   "Author": "Whuihuan",
-  "Version": "1.0.0",
+  "Version": "1.0.1",
   "Language": "csharp",
   "Website": "https://github.com/Whuihuan/PowerToysRun-Bilibili",
   "IcoPathDark": "bilibili_logo.png",

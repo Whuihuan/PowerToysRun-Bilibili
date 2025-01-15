@@ -171,7 +171,7 @@ namespace Community.PowerToys.Run.Plugin.Bilibili
         /// </summary>
         /// <param name="mid">UP主UID</param>
         /// <param name="url">头像地址</param>
-        public void CachePic(int mid, string url)
+        public void CachePic(long mid, string url)
         {
             var cache_pic = Path.Join(workDir, "cache", $"cache-{mid}.jpg");
             if (File.Exists(cache_pic)) return;
@@ -259,7 +259,7 @@ namespace Community.PowerToys.Run.Plugin.Bilibili
             /// <summary>
             /// 投稿人UID
             /// </summary>
-            public int mid { get; set; }
+            public long mid { get; set; }
             /// <summary>
             /// 投稿人名字
             /// </summary>
