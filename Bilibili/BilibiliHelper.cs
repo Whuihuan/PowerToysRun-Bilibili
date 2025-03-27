@@ -61,7 +61,12 @@ namespace Community.PowerToys.Run.Plugin.Bilibili
         {
             var req = new HttpRequestMessage(HttpMethod.Head, url);
             var res = httpClient.Send(req);
-            return res.Headers.Location?.ToString() ?? "";
+            var redirectUrl = res.Headers.Location?.ToString() ?? "";
+            if (string.IsNullOrWhiteSpace(redirectUrl))
+            {
+                redirectUrl = res.RequestMessage?.RequestUri?.ToString() ?? "";
+            }
+            return redirectUrl;
         }
 
         /// <summary>

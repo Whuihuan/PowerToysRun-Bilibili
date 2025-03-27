@@ -1,6 +1,4 @@
-﻿
-
-using Community.PowerToys.Run.Plugin.Bilibili;
+﻿using Community.PowerToys.Run.Plugin.Bilibili;
 
 namespace Community.Powertoys.Run.Plugin.Bilibili.Tests
 {
