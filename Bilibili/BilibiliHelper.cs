@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -6,11 +7,6 @@ namespace Community.PowerToys.Run.Plugin.Bilibili
 {
     public class BilibiliHelper
     {
-        /// <summary>
-        /// HTTP请求对象
-        /// </summary>
-        private readonly HttpClient httpClient = new HttpClient();
-
         /// <summary>
         /// 工作目录
         /// </summary>
@@ -59,13 +55,14 @@ namespace Community.PowerToys.Run.Plugin.Bilibili
         /// <returns></returns>
         private string getRedirectUrl(string url)
         {
+            var redirectUrl = "";
             var req = new HttpRequestMessage(HttpMethod.Head, url);
-            var res = httpClient.Send(req);
-            var redirectUrl = res.Headers.Location?.ToString() ?? "";
-            if (string.IsNullOrWhiteSpace(redirectUrl))
+            using var client = new HttpClient(new HttpClientHandler
             {
-                redirectUrl = res.RequestMessage?.RequestUri?.ToString() ?? "";
-            }
+                AllowAutoRedirect = false
+            });
+            var res = client.Send(req);
+            redirectUrl = res.Headers.Location?.ToString() ?? "";
             return redirectUrl;
         }
 
@@ -79,7 +76,7 @@ namespace Community.PowerToys.Run.Plugin.Bilibili
             // 获得保存地址目录
             var dir = Path.GetDirectoryName(path);
             // 判断目录是否存在，不存在则创建
-            if(!string.IsNullOrWhiteSpace(dir) && !Directory.Exists(dir)) Directory.CreateDirectory(dir);
+            if (!string.IsNullOrWhiteSpace(dir) && !Directory.Exists(dir)) Directory.CreateDirectory(dir);
             using HttpClient client = new();
             try
             {
@@ -140,13 +137,13 @@ namespace Community.PowerToys.Run.Plugin.Bilibili
             req.Headers.Add("origin", "https://space.bilibili.com");
             req.Headers.Add("referer", "https://www.bilibili.com/");
             req.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36");
-            var res = httpClient.Send(req);
+            using var client = new HttpClient();
+            var res = client.Send(req);
             if (res.IsSuccessStatusCode)
             {
                 var str = res.Content.ReadAsStringAsync().Result;
                 result = JsonSerializer.Deserialize<apiBilibili>(str);
             }
-
             return result;
         }
 
